@@ -53,15 +53,6 @@ namespace NewFinancialAPI.Models
         public DbSet<BudgetItem> BudgetItems { get; set; }
         public DbSet<Invite> Invites { get; set; }
 
-        public int AddAccount(int hhId, string name, decimal balance, decimal recbalance, string userId)
-        {
-            return Database.ExecuteSqlCommand("AddAccount @hhId, @name, @balance, @recbalance, @userId",
-                new SqlParameter("hhId", hhId),
-                new SqlParameter("name", name),
-                new SqlParameter("balance", balance),
-                new SqlParameter("recbalance", recbalance),
-                new SqlParameter("userId", userId));
-        }
 
         public int AddTransaction(int accountId, string description, decimal amount, bool trxType, bool isVoid, int categoryId, string userId, bool reconciled, decimal recBalance, bool isDeleted)
         {
@@ -78,8 +69,34 @@ namespace NewFinancialAPI.Models
                 new SqlParameter("isDeleted", isDeleted),
                 new SqlParameter("date", DateTimeOffset.Now));
         }
-        
-        
+
+        public int AddAccount(int hhId, string name, decimal balance, decimal recbalance, string userId, bool isDeleted)
+        {
+            return Database.ExecuteSqlCommand("AddAccount @hhId, @name, @balance, @recbalance, @createdbyId, @isDeleted",
+                new SqlParameter("hhId", hhId),
+                new SqlParameter("name", name),
+                new SqlParameter("balance", balance),
+                new SqlParameter("recbalance", recbalance),
+                new SqlParameter("createdbyId", userId),
+                new SqlParameter("isDeleted", isDeleted));
+        }
+
+        public int AddBudget(int hhId, string name)
+        {
+            return Database.ExecuteSqlCommand("AddBudget @hhId, @name",
+                new SqlParameter("hhId", hhId),
+                new SqlParameter("name", name));
+        }
+
+        public int AddHousehold(int headofhouseholdId, string name)
+        {
+            return Database.ExecuteSqlCommand("AddHousehold @headofhouseholdId, @name",
+                new SqlParameter("headofhouseholdId", headofhouseholdId),
+                new SqlParameter("name", name));
+        }
+
+
+
         public async Task<List<PersonalAccount>> GetAccounts(int hhId)
         {
             return await Database.SqlQuery<PersonalAccount>("GetAccountByHousehold @hhId",
@@ -91,6 +108,17 @@ namespace NewFinancialAPI.Models
             return await Database.SqlQuery<PersonalAccount>("GetAccountDetails @acctId, @hhId",
                 new SqlParameter("acctId", accountId),
                 new SqlParameter("hhId", hhId)).FirstOrDefaultAsync();
+        }
+
+        public async Task<Household> GetHousehold(int hhId)
+        {
+            return await Database.SqlQuery<Household>("GetHousehold @hhId", 
+                new SqlParameter("hhId", hhId)).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Household>> GetAllHouseholds()
+        {
+            return await Database.SqlQuery<Household>("GetAllHouseholds").ToListAsync();
         }
 
         public async Task<List<Transaction>> GetTransactions(int accountId, int hhId)
