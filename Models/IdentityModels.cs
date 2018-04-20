@@ -128,5 +128,21 @@ namespace NewFinancialAPI.Models
                 new SqlParameter("hhId", hhId)).ToListAsync();
         }
 
+        public async Task<PersonalAccount> GetAccountBalance(int hhId, int id)
+        {
+            return await Database.SqlQuery<PersonalAccount>("GetAccountBalance @hhId, @id",
+                new SqlParameter("hhId", hhId),
+                new SqlParameter("id", id)).FirstOrDefaultAsync();
+        }
+
+        public async Task<Budget> GetBudgetBalance(int hhId)
+        {
+            return await Database.SqlQuery<Budget>("GetBudgetBalance @hhId",
+                new SqlParameter("hhId", hhId)).FirstOrDefaultAsync();
+        }
+
+
+
+
     }
 }

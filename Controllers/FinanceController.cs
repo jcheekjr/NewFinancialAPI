@@ -19,11 +19,11 @@ namespace NewFinancialAPI.Controllers
 
         //======================================================================================//
         //-- INSERTS --//
-        
+
         /// <summary>
         /// Insert a Transaction
         /// </summary>
-        /// <param name="accountId">The PersonalAccounts FPK</param>
+        /// <param name="accountId">The PersonalAccounts FK</param>
         /// <param name="description">Description of Transaction</param>
         /// <param name="amount">Amount of Transaction</param>
         /// <param name="trxType">Type of Transaction</param>
@@ -45,7 +45,7 @@ namespace NewFinancialAPI.Controllers
         /// <summary>
         /// Insert a PersonalAccount
         /// </summary>
-        /// <param name="hhId">Household FPK</param>
+        /// <param name="hhId">Household FK</param>
         /// <param name="name">Account Name</param>
         /// <param name="balance">Account Balance</param>
         /// <param name="recbalance">Account Reconciled Balance Amount</param>
@@ -63,7 +63,7 @@ namespace NewFinancialAPI.Controllers
         /// <summary>
         /// Insert a Budget
         /// </summary>
-        /// <param name="hhId">Household FPK</param>
+        /// <param name="hhId">Household FK</param>
         /// <param name="name">Budget Name</param>
         /// <returns></returns>
         [Route("AddBudget")]
@@ -94,7 +94,7 @@ namespace NewFinancialAPI.Controllers
         /// <summary>
         ///  Select Accounts by Household Id, Return XML
         /// </summary>
-        /// <param name="householdId">The Household Foreign Primary Key</param>
+        /// <param name="householdId">The Household Foreign Key</param>
         /// <returns></returns>
 
         [Route("Accounts")]
@@ -107,7 +107,7 @@ namespace NewFinancialAPI.Controllers
         /// <summary>
         /// Select Accounts by Household Id, Return Json
         /// </summary>
-        /// <param name="householdId">The Household Foreign Primary Key</param>
+        /// <param name="householdId">The Household Foreign Key</param>
         /// <returns></returns>
         [Route("Accounts/json")]
         public async Task<IHttpActionResult> GetAccountsJson(int householdId)
@@ -132,8 +132,8 @@ namespace NewFinancialAPI.Controllers
         /// <summary>
         /// Select an Account Details and Return Json
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="hhId"></param>
+        /// <param name="accountId">PersonalAccount PK</param>
+        /// <param name="hhId">HH FK</param>
         /// <returns></returns>
         [Route("AccountDetails/json")]
         public async Task<IHttpActionResult> GetAccountDetailsJson(int accountId, int hhId)
@@ -194,8 +194,8 @@ namespace NewFinancialAPI.Controllers
         /// <summary>
         /// Select Transactions by Account and Household
         /// </summary>
-        /// <param name="accountId">PersonalAccount FPK</param>
-        /// <param name="hhId">Household FPK</param>
+        /// <param name="accountId">PersonalAccount FK</param>
+        /// <param name="hhId">Household FK</param>
         /// <returns></returns>
         [Route("Transactions")]
         public async Task<List<Transaction>> GetTransactions(int accountId, int hhId)
@@ -206,8 +206,8 @@ namespace NewFinancialAPI.Controllers
         /// <summary>
         /// Select Transactions by Account and Household, Return Json
         /// </summary>
-        /// <param name="accountId"></param>
-        /// <param name="hhId"></param>
+        /// <param name="accountId">Personal Account FK</param>
+        /// <param name="hhId">HH FK</param>
         /// <returns></returns>
         [Route("Transactions/json")]
         public async Task<IHttpActionResult> GetTransactionsJson(int accountId, int hhId)
@@ -215,6 +215,47 @@ namespace NewFinancialAPI.Controllers
             var json = JsonConvert.SerializeObject(await db.GetTransactions(accountId, hhId));
             return Ok(json);
         }
+
+
+        /// <summary>
+        /// Select Balance from Personal Account
+        /// </summary>
+        /// <param name="hhId">HH FK</param>
+        /// <returns></returns>
+        [Route("AccountBalance")]
+        public async Task<PersonalAccount> GetAccountBalance(int hhId, int id)
+        {
+            return await db.GetAccountBalance(hhId, id);
+        }
+
+        /// <summary>
+        /// Select Account Balance by PK and FK
+        /// </summary>
+        /// <param name="hhId">HH FK</param>
+        /// <param name="id">PersonalAccount PK</param>
+        /// <returns></returns>
+        [Route("AccountBalance/json")]
+        public async Task<IHttpActionResult> GetAccountBalanceJson(int hhId, int id)
+        {
+            var json = JsonConvert.SerializeObject(await db.GetAccountBalance(hhId, id));
+            return Ok(json);
+        }
+
+        /// <summary>
+        /// Select Balance on Budget
+        /// </summary>
+        /// <param name="hhId">HH FK</param>
+        /// <returns></returns>
+        [Route("BudgetBalance")]
+        public async Task<Budget> GetBudgetBalance(int hhId)
+        {
+            return await db.GetBudgetBalance(hhId);
+        }
+
+
+
+
+
 
     }
 }
