@@ -221,6 +221,7 @@ namespace NewFinancialAPI.Controllers
         /// Select Balance from Personal Account
         /// </summary>
         /// <param name="hhId">HH FK</param>
+        /// <param name="id">Personal Accounts PK</param>
         /// <returns></returns>
         [Route("AccountBalance")]
         public async Task<PersonalAccount> GetAccountBalance(int hhId, int id)
