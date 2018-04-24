@@ -27,7 +27,7 @@ namespace NewFinancialAPI.Controllers
         /// <param name="description">Description of Transaction</param>
         /// <param name="amount">Amount of Transaction</param>
         /// <param name="trxType">Type of Transaction</param>
-        /// <param name="isVoid">?</param>
+        /// <param name="isVoid">Is the transaction voided or not?</param>
         /// <param name="categoryId">Category of Transaction</param>
         /// <param name="userId">Transaction Creator UserId</param>
         /// <param name="reconciled">Reconciled Y or N</param>
@@ -86,6 +86,20 @@ namespace NewFinancialAPI.Controllers
         {
             return Ok(db.AddHousehold(headofhouseholdId, name));
 
+        }
+
+
+        /// <summary>
+        /// Add User to a Household
+        /// </summary>
+        /// <param name="userId">ApplicationUser PK</param>
+        /// <param name="hhId">Household FK</param>
+        /// <returns></returns>
+        [Route("AddUserToHousehold")]
+        [AcceptVerbs("GET", "POST")]
+        public IHttpActionResult AddUserToHousehold(string userId, int hhId)
+        {
+            return Ok(db.AddUserToHousehold(userId, hhId));
         }
 
 
@@ -224,7 +238,7 @@ namespace NewFinancialAPI.Controllers
         /// <param name="id">Personal Accounts PK</param>
         /// <returns></returns>
         [Route("AccountBalance")]
-        public async Task<PersonalAccount> GetAccountBalance(int hhId, int id)
+        public async Task<decimal> GetAccountBalance(int hhId, int id)
         {
             return await db.GetAccountBalance(hhId, id);
         }
@@ -248,15 +262,98 @@ namespace NewFinancialAPI.Controllers
         /// <param name="hhId">HH FK</param>
         /// <returns></returns>
         [Route("BudgetBalance")]
-        public async Task<Budget> GetBudgetBalance(int hhId)
+        public async Task<decimal> GetBudgetBalance(int hhId)
         {
             return await db.GetBudgetBalance(hhId);
         }
 
 
+        /// <summary>
+        /// Select Balance on Budget, Return Json
+        /// </summary>
+        /// <param name="hhId">HH FK</param>
+        /// <returns></returns>
+        [Route("BudgetBalance/json")]
+        public async Task<IHttpActionResult> GetBudgetBalanceJson(int hhId)
+        {
+            var json = JsonConvert.SerializeObject(await db.GetBudgetBalance(hhId));
+            return Ok(json);
+        }
+
+        /// <summary>
+        /// Get All Members of a Household
+        /// </summary>
+        /// <param name="hhId">HH FK</param>
+        /// <returns></returns>
+        [Route("MembersOfHousehold")]
+        public async Task<List<ApplicationUser>> GetMembersOfHousehold(int hhId)
+        {
+            return await db.GetMembersOfHousehold(hhId);
+        }
+
+
+        /// <summary>
+        /// Get All Members of a Household, Return Json
+        /// </summary>
+        /// <param name="hhId">HH FK</param>
+        /// <returns></returns>
+        [Route("MembersOfHousehold/json")]
+        public async Task<IHttpActionResult> GetMembersOfHouseholdJson(int hhId)
+        {
+            var json = JsonConvert.SerializeObject(await db.GetMembersOfHousehold(hhId));
+            return Ok(json);
+        }
+
+        /// <summary>
+        /// GetTransactionsByHouseholdId
+        /// </summary>
+        /// <param name="hhId">Join on PersonalAccount and use hhId as FK</param>
+        /// <returns></returns>
+        [Route("TransactionsByHousehold")]
+        public async Task<List<Transaction>> GetTransactionsByHousehold(int hhId)
+        {
+            return await db.GetTransactionsByHousehold(hhId);
+        }
+
+
+        /// <summary>
+        /// GetTransactionByHousehold, Return Json
+        /// </summary>
+        /// <param name="hhId">Join on PersonalAccount and use hhId as FK</param>
+        /// <returns></returns>
+        [Route("TransactionsByHousehold/json")]
+        public async Task<IHttpActionResult> GetTransactionsByHouseholdJson(int hhId)
+        {
+            var json = JsonConvert.SerializeObject(await db.GetTransactionsByHousehold(hhId));
+            return Ok(json);
+        }
 
 
 
+        /// <summary>
+        /// Get Total Balance for All Accounts in Household
+        /// </summary>
+        /// <param name="hhId">HH FK</param>
+        /// <returns></returns>
+        [Route("HouseholdAccountBalance")]
+        public async Task<decimal> GetHouseholdAccountBalance(int hhId)
+        {
+            return await db.GetHouseholdAccountBalance(hhId);
+        }
+
+
+
+        /// <summary>
+        /// Get Total Balance for All Accounts in Household, Return Json
+        /// </summary>
+        /// <param name="hhId">HH FK</param>
+        /// <returns></returns>
+        [Route("HouseholdAccountBalance/json")]
+        public async Task<IHttpActionResult> GetHouseholdAccountBalanceJson(int hhId)
+        {
+            var json = JsonConvert.SerializeObject(await db.GetHouseholdAccountBalance(hhId));
+            return Ok(json);
+        }
 
     }
 }

@@ -489,7 +489,7 @@
             <param name="description">Description of Transaction</param>
             <param name="amount">Amount of Transaction</param>
             <param name="trxType">Type of Transaction</param>
-            <param name="isVoid">?</param>
+            <param name="isVoid">Is the transaction voided or not?</param>
             <param name="categoryId">Category of Transaction</param>
             <param name="userId">Transaction Creator UserId</param>
             <param name="reconciled">Reconciled Y or N</param>
@@ -523,6 +523,14 @@
             </summary>
             <param name="headofhouseholdId">Head of Household UserId</param>
             <param name="name">Household Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewFinancialAPI.Controllers.FinanceController.AddUserToHousehold(System.String,System.Int32)">
+            <summary>
+            Add User to a Household
+            </summary>
+            <param name="userId">ApplicationUser PK</param>
+            <param name="hhId">Household FK</param>
             <returns></returns>
         </member>
         <member name="M:NewFinancialAPI.Controllers.FinanceController.GetAccounts(System.Int32)">
@@ -602,6 +610,7 @@
             Select Balance from Personal Account
             </summary>
             <param name="hhId">HH FK</param>
+            <param name="id">Personal Accounts PK</param>
             <returns></returns>
         </member>
         <member name="M:NewFinancialAPI.Controllers.FinanceController.GetAccountBalanceJson(System.Int32,System.Int32)">
@@ -615,6 +624,55 @@
         <member name="M:NewFinancialAPI.Controllers.FinanceController.GetBudgetBalance(System.Int32)">
             <summary>
             Select Balance on Budget
+            </summary>
+            <param name="hhId">HH FK</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewFinancialAPI.Controllers.FinanceController.GetBudgetBalanceJson(System.Int32)">
+            <summary>
+            Select Balance on Budget, Return Json
+            </summary>
+            <param name="hhId">HH FK</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewFinancialAPI.Controllers.FinanceController.GetMembersOfHousehold(System.Int32)">
+            <summary>
+            Get All Members of a Household
+            </summary>
+            <param name="hhId">HH FK</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewFinancialAPI.Controllers.FinanceController.GetMembersOfHouseholdJson(System.Int32)">
+            <summary>
+            Get All Members of a Household, Return Json
+            </summary>
+            <param name="hhId">HH FK</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewFinancialAPI.Controllers.FinanceController.GetTransactionsByHousehold(System.Int32)">
+            <summary>
+            GetTransactionsByHouseholdId
+            </summary>
+            <param name="hhId">Join on PersonalAccount and use hhId as FK</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewFinancialAPI.Controllers.FinanceController.GetTransactionsByHouseholdJson(System.Int32)">
+            <summary>
+            GetTransactionByHousehold, Return Json
+            </summary>
+            <param name="hhId">Join on PersonalAccount and use hhId as FK</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewFinancialAPI.Controllers.FinanceController.GetHouseholdAccountBalance(System.Int32)">
+            <summary>
+            Get Total Balance for All Accounts in Household
+            </summary>
+            <param name="hhId">HH FK</param>
+            <returns></returns>
+        </member>
+        <member name="M:NewFinancialAPI.Controllers.FinanceController.GetHouseholdAccountBalanceJson(System.Int32)">
+            <summary>
+            Get Total Balance for All Accounts in Household, Return Json
             </summary>
             <param name="hhId">HH FK</param>
             <returns></returns>

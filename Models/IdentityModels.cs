@@ -95,11 +95,17 @@ namespace NewFinancialAPI.Models
                 new SqlParameter("name", name));
         }
 
+        public int AddUserToHousehold(string userId, int hhId)
+        {
+            return Database.ExecuteSqlCommand("AddUserToHousehold @userId, @hhId",
+                new SqlParameter("userd", userId),
+                 new SqlParameter("hhId", hhId));
+        }
 
 
         public async Task<List<PersonalAccount>> GetAccounts(int hhId)
         {
-            return await Database.SqlQuery<PersonalAccount>("GetAccountByHousehold @hhId",
+            return await Database.SqlQuery<PersonalAccount>("GetAccounts @hhId",
                 new SqlParameter("hhId", hhId)).ToListAsync();
         }
 
@@ -128,16 +134,34 @@ namespace NewFinancialAPI.Models
                 new SqlParameter("hhId", hhId)).ToListAsync();
         }
 
-        public async Task<PersonalAccount> GetAccountBalance(int hhId, int id)
+        public async Task<decimal> GetAccountBalance(int hhId, int id)
         {
-            return await Database.SqlQuery<PersonalAccount>("GetAccountBalance @hhId, @id",
+            return await Database.SqlQuery<decimal>("GetAccountBalance @hhId, @id",
                 new SqlParameter("hhId", hhId),
                 new SqlParameter("id", id)).FirstOrDefaultAsync();
         }
 
-        public async Task<Budget> GetBudgetBalance(int hhId)
+        public async Task<decimal> GetBudgetBalance(int hhId)
         {
-            return await Database.SqlQuery<Budget>("GetBudgetBalance @hhId",
+            return await Database.SqlQuery<decimal>("GetBudgetBalance @hhId",
+                new SqlParameter("hhId", hhId)).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<ApplicationUser>> GetMembersOfHousehold(int hhId)
+        {
+            return await Database.SqlQuery<ApplicationUser>("GetMembersOfHousehold @hhId",
+                new SqlParameter("hhId", hhId)).ToListAsync();
+        }
+
+        public async Task<List<Transaction>> GetTransactionsByHousehold(int hhId)
+        {
+            return await Database.SqlQuery<Transaction>("GetTransactionsByHousehold @hhId",
+                new SqlParameter("hhId", hhId)).ToListAsync();
+        }
+
+        public async Task<decimal> GetHouseholdAccountBalance(int hhId)
+        {
+            return await Database.SqlQuery<decimal>("GetHouseholdAccountBalance @hhId",
                 new SqlParameter("hhId", hhId)).FirstOrDefaultAsync();
         }
 

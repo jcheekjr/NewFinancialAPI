@@ -1,5 +1,6 @@
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\ApplicationInsights.config
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\NewFinancialAPI.dll.config
+C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\NewFinancialAPI.xml
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\NewFinancialAPI.dll
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\NewFinancialAPI.pdb
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\Antlr3.Runtime.dll
@@ -75,8 +76,8 @@ C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\Microsoft.AI.Dep
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\Microsoft.AI.Web.xml
-C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\obj\Debug\NewFinancialAPI.csprojResolveAssemblyReference.cache
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\obj\Debug\NewFinancialAPI.csproj.CoreCompileInputs.cache
+C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\obj\Debug\NewFinancialAPI.csproj.CopyComplete
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\obj\Debug\NewFinancialAPI.dll
 C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\obj\Debug\NewFinancialAPI.pdb
-C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\bin\NewFinancialAPI.xml
+C:\Users\james\source\repos\NewFinancialAPI\NewFinancialAPI\obj\Debug\NewFinancialAPI.csprojResolveAssemblyReference.cache
